@@ -1,0 +1,26 @@
+{
+  "name": "form-designer",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "dependencies": {
+    "bel": "^4.5.0",
+    "bootstrap": "^3.3.7",
+    "choo": "^3.3.0",
+    "dragula": "^3.7.2",
+    "insert-css": "^1.0.0",
+    "sheetify": "^5.1.1"
+  },
+  "devDependencies": {
+    "bankai": "^3.3.1",
+    "budo": "^9.2.1",
+    "choo-log": "^1.4.0"
+  },
+  "scripts": {
+    "start": "budo src/index.js --live -- -t sheetify/transform",
+    "build": "bankai build"
+  },
+  "keywords": [],
+  "author": "timwis <tim@timwis.com>",
+  "license": "MIT"
+}
