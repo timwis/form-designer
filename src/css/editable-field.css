@@ -1,0 +1,13 @@
+[contenteditable="true"] {
+  cursor: text;
+}
+[contenteditable="true"]:empty::before {
+  border: 1px #777 dashed;
+  padding: 3px;
+}
+label[contenteditable="true"]:empty::before {
+  content: 'Untitled Question'
+}
+.help-block[contenteditable="true"]:empty::before {
+  content: 'Optional description'
+}

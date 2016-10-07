@@ -3,6 +3,8 @@ const css = require('sheetify')
 
 css('bootstrap')
 css('dragula/dist/dragula')
+css('./css/editable-field', { global: true })
+css('./css/drag-handle', { global: true })
 
 const app = choo()
 

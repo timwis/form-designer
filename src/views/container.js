@@ -1,43 +1,79 @@
 const html = require('choo/html')
 const dragula = require('dragula')
 
-const TextField = require('../components/text-field')
 const AddButton = require('../components/add-button')
+const { getIndexInParent } = require('../util')
+
+const fieldTypes = {
+  text: require('../components/text-field'),
+  radio: require('../components/radio-field')
+}
 
 module.exports = (state, prev, send) => {
-  const canvas = html`
-    <section id="canvas">
-      ${state.fields.map((field, index) => TextField(field, index, onUpdate))}
-    </section>
-  `
-  const dragArea = dragula([canvas])
-  dragArea.on('drop', onDragDrop)
-
-  return html`
+  const tree = html`
     <div class="container">
       <h1>Form designer</h1>
-      ${canvas}
+      <section id="canvas">
+        ${state.fields.map((field, index) => {
+          if (field.type === 'radio') {
+            return fieldTypes.radio(field, index, updateCallback(index), addOptionCallback(index), updateOptionCallback(index), reorderOptionCallback(index))
+          } else {
+            return fieldTypes[field.type](field, index, updateCallback(index))
+          }
+        })}
+      </section>
       <section id="controls">
         ${AddButton(onClickAdd)}
       </section>
     </div>
   `
+  const canvas = tree.querySelector('#canvas')
+  const dragArea = dragula([canvas], { moves: moveHandler })
+  dragArea.on('drop', onDragDrop)
+
+  return tree
 
   function onDragDrop (el, target, source, nextSibling) {
-    console.log('dropped before', nextSibling, nextSibling && nextSibling.getAttribute('key'))
     const data = {
       fromIndex: el.getAttribute('key'),
-      toIndex: nextSibling && nextSibling.getAttribute('key')
+      toIndex: getIndexInParent(el)
     }
-    send('reorder', data)
+    send('reorderField', data)
   }
 
-  function onClickAdd () {
-    send('addField')
+  function moveHandler (el, container, handle) {
+    // only allow dragging from the handler
+    return handle.classList.contains('drag-handle')
   }
 
-  function onUpdate (index, key, value) {
-    const data = { index, key, value }
-    send('setField', data)
+  function onClickAdd (type) {
+    send('addField', type)
+  }
+
+  function updateCallback (index) {
+    return function (updates) {
+      const data = { index, updates }
+      send('updateField', data)
+    }
+  }
+
+  function addOptionCallback (index) {
+    return function () {
+      send('addOption', index)
+    }
+  }
+
+  function updateOptionCallback (fieldIndex) {
+    return function (optionIndex, updates) {
+      const data = { fieldIndex, optionIndex, updates }
+      send('updateOption', data)
+    }
+  }
+
+  function reorderOptionCallback (fieldIndex) {
+    return function (fromIndex, toIndex) {
+      const data = { fieldIndex, fromIndex, toIndex }
+      send('reorderOption', data)
+    }
   }
 }
