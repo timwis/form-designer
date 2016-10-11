@@ -10,7 +10,7 @@ const prefix = css`
   }
 `
 
-module.exports = (field, fieldIndex, updateCallback, addOptionCallback, updateOptionCallback, reorderOptionCallback) => {
+module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
   const options = field.options || []
 
   const tree = html`
@@ -48,7 +48,7 @@ module.exports = (field, fieldIndex, updateCallback, addOptionCallback, updateOp
     return function (evt) {
       const value = evt.target.innerText
       const updates = { [key]: value }
-      updateCallback(updates)
+      changeCallback(updates)
     }
   }
 
@@ -56,18 +56,20 @@ module.exports = (field, fieldIndex, updateCallback, addOptionCallback, updateOp
     return function (evt) {
       const value = evt.target.innerText
       const updates = { label: value }
-      updateOptionCallback(optionIndex, updates)
+      const data = { optionIndex, updates }
+      changeOptionCallback('update', data)
     }
   }
 
   function onClickAddOption (evt) {
-    addOptionCallback()
+    changeOptionCallback('add')
     evt.preventDefault()
   }
 
   function onDragDrop (el, target, source, nextSibling) {
     const fromIndex = el.getAttribute('key')
     const toIndex = getIndexInParent(el)
-    reorderOptionCallback(fromIndex, toIndex)
+    const data = { fromIndex, toIndex }
+    changeOptionCallback('reorder', data)
   }
 }

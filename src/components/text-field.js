@@ -1,6 +1,6 @@
 const html = require('choo/html')
 
-module.exports = (field, index, updateCallback) => {
+module.exports = (field, index, changeCallback) => {
   return html`
     <div class="form-group" key=${index}>
       <div class="drag-handle"></div>
@@ -14,7 +14,7 @@ module.exports = (field, index, updateCallback) => {
     return function (evt) {
       const value = evt.target.innerText
       const updates = { [key]: value }
-      updateCallback(updates)
+      changeCallback(updates)
     }
   }
 }

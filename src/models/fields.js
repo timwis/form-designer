@@ -20,7 +20,8 @@ module.exports = {
       const newFieldList = moveItem(state.fields, data.fromIndex, data.toIndex)
       return { fields: newFieldList }
     },
-    addOption: (fieldIndex, state) => {
+    addOption: (data, state) => {
+      const { fieldIndex } = data
       const oldOptions = state.fields[fieldIndex].options
       const newOptions = oldOptions ? oldOptions.slice() : []
       newOptions.push({})

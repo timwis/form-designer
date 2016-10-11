@@ -16,24 +16,29 @@ module.exports = (state, prev, send) => {
       <section id="canvas">
         ${state.fields.map((field, index) => {
           if (field.type === 'radio') {
-            return fieldTypes.radio(field, index, updateCallback(index), addOptionCallback(index), updateOptionCallback(index), reorderOptionCallback(index))
+            return fieldTypes.radio(field, index, changeCallback(index), changeOptionCallback(index))
           } else {
-            return fieldTypes[field.type](field, index, updateCallback(index))
+            return fieldTypes[field.type](field, index, changeCallback(index))
           }
         })}
       </section>
       <section id="controls">
-        ${AddButton(onClickAdd)}
+        ${AddButton(addFieldCallback)}
       </section>
     </div>
   `
   const canvas = tree.querySelector('#canvas')
   const dragArea = dragula([canvas], { moves: moveHandler })
-  dragArea.on('drop', onDragDrop)
+  dragArea.on('drop', dragDropCallback)
 
   return tree
 
-  function onDragDrop (el, target, source, nextSibling) {
+  function moveHandler (el, container, handle) {
+    // only allow dragging from the handler
+    return handle.classList.contains('drag-handle')
+  }
+
+  function dragDropCallback (el, target, source, nextSibling) {
     const data = {
       fromIndex: el.getAttribute('key'),
       toIndex: getIndexInParent(el)
@@ -41,39 +46,25 @@ module.exports = (state, prev, send) => {
     send('reorderField', data)
   }
 
-  function moveHandler (el, container, handle) {
-    // only allow dragging from the handler
-    return handle.classList.contains('drag-handle')
-  }
-
-  function onClickAdd (type) {
+  function addFieldCallback (type) {
     send('addField', type)
   }
 
-  function updateCallback (index) {
+  function changeCallback (index) {
     return function (updates) {
       const data = { index, updates }
       send('updateField', data)
     }
   }
 
-  function addOptionCallback (index) {
-    return function () {
-      send('addOption', index)
-    }
-  }
-
-  function updateOptionCallback (fieldIndex) {
-    return function (optionIndex, updates) {
-      const data = { fieldIndex, optionIndex, updates }
-      send('updateOption', data)
-    }
-  }
-
-  function reorderOptionCallback (fieldIndex) {
-    return function (fromIndex, toIndex) {
-      const data = { fieldIndex, fromIndex, toIndex }
-      send('reorderOption', data)
+  function changeOptionCallback (index) {
+    return function (action, data) {
+      const payload = Object.assign({}, data, { fieldIndex: index })
+      switch (action) { // switchy swish
+        case 'add': return send('addOption', payload)
+        case 'update': return send('updateOption', payload)
+        case 'reorder': return send('reorderOption', payload)
+      }
     }
   }
 }
