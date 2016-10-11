@@ -34,7 +34,18 @@ module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
         </label>
       </div>
 
-      <p class="help-block" contenteditable="true" oninput=${onInput('description')}>${field.description}</p>
+      <div class="row">
+        <div class="col-sm-8">
+          <p class="help-block" contenteditable="true" oninput=${onInput('description')}>${field.description}</p>
+        </div>
+        <div class="col-sm-4">
+          <div class="field-controls">
+            <div class="checkbox required-toggle">
+              <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   `
@@ -71,5 +82,10 @@ module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
     const toIndex = getIndexInParent(el)
     const data = { fromIndex, toIndex }
     changeOptionCallback('reorder', data)
+  }
+
+  function onToggleRequired (evt) {
+    const updates = { required: !!evt.target.checked }
+    changeCallback(updates)
   }
 }

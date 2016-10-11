@@ -8,7 +8,10 @@ module.exports = (cb) => {
         Add field <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#" onclick=${onClick('text')}>Text</a></li>
+        <li><a href="#" onclick=${onClick('text')}>Text (Short answer)</a></li>
+        <li><a href="#" onclick=${onClick('email')}>Email</a></li>
+        <li><a href="#" onclick=${onClick('number')}>Number</a></li>
+        <li><a href="#" onclick=${onClick('paragraph')}>Paragraph</a></li>
         <li><a href="#" onclick=${onClick('radio')}>Radio</a></li>
       </ul>
     </div>

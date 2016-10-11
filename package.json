@@ -9,16 +9,18 @@
     "bootstrap.native": "^1.0.5",
     "choo": "^3.3.0",
     "dragula": "^3.7.2",
+    "js-yaml": "^3.6.1",
     "sheetify": "^5.1.1"
   },
   "devDependencies": {
     "bankai": "^3.3.1",
     "budo": "^9.2.1",
-    "choo-log": "^1.4.0"
+    "choo-log": "^1.4.0",
+    "envify": "^3.4.1"
   },
   "scripts": {
-    "start": "budo src/index.js --live -- -t sheetify/transform",
-    "build": "bankai build",
+    "start": "budo src/index.js --live -- -t sheetify/transform -t envify",
+    "build": "NODE_ENV=production bankai build --js.transform envify",
     "deploy": "npm run build && surge ./dist -d form-designer.surge.sh"
   },
   "keywords": [],

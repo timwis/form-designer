@@ -1,29 +1,42 @@
 const html = require('choo/html')
+const css = require('sheetify')
 const dragula = require('dragula')
+const yaml = require('js-yaml')
 
 const AddButton = require('../components/add-button')
 const { getIndexInParent } = require('../util')
 
-const fieldTypes = {
-  text: require('../components/text-field'),
-  radio: require('../components/radio-field')
-}
+const TextField = require('../components/text-field')
+const RadioField = require('../components/radio-field')
+
+const prefix = css`
+  @media (min-width: 768px) {
+    :host {
+      width: 730px;
+    }
+  }
+`
 
 module.exports = (state, prev, send) => {
   const tree = html`
-    <div class="container">
+    <div class="container ${prefix}">
       <h1>Form designer</h1>
       <section id="canvas">
         ${state.fields.map((field, index) => {
-          if (field.type === 'radio') {
-            return fieldTypes.radio(field, index, changeCallback(index), changeOptionCallback(index))
-          } else {
-            return fieldTypes[field.type](field, index, changeCallback(index))
+          switch (field.type) {
+            case 'radio':
+              return RadioField(field, index, changeCallback(index), changeOptionCallback(index))
+            default:
+              return TextField(field, index, changeCallback(index))
           }
         })}
       </section>
       <section id="controls">
         ${AddButton(addFieldCallback)}
+      </section>
+      <section id="serialized">
+        <h3>Serialized</h3>
+        <pre>${yaml.safeDump(state.fields)}</pre>
       </section>
     </div>
   `
@@ -46,10 +59,6 @@ module.exports = (state, prev, send) => {
     send('reorderField', data)
   }
 
-  function addFieldCallback (type) {
-    send('addField', type)
-  }
-
   function changeCallback (index) {
     return function (updates) {
       const data = { index, updates }
@@ -66,5 +75,9 @@ module.exports = (state, prev, send) => {
         case 'reorder': return send('reorderOption', payload)
       }
     }
+  }
+
+  function addFieldCallback (type) {
+    send('addField', type)
   }
 }
