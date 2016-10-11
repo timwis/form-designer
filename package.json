@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "budo src/index.js --live -- -t sheetify/transform",
-    "build": "bankai build"
+    "build": "bankai build",
+    "deploy": "npm run build && surge ./dist -d form-designer.surge.sh"
   },
   "keywords": [],
   "author": "timwis <tim@timwis.com>",
