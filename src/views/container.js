@@ -80,6 +80,7 @@ module.exports = (state, prev, send) => {
         case 'add': return send('addOption', payload)
         case 'update': return send('updateOption', payload)
         case 'reorder': return send('reorderOption', payload)
+        case 'delete': return send('deleteOption', payload)
       }
     }
   }

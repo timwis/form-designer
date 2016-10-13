@@ -47,6 +47,14 @@ module.exports = {
       const updates = { options: newOptions }
       const newFieldList = updateItem(state.fields, fieldIndex, updates)
       return { fields: newFieldList }
+    },
+    deleteOption: (data, state) => {
+      const { fieldIndex, optionIndex } = data
+      const oldOptions = state.fields[fieldIndex].options || []
+      const newOptions = removeItem(oldOptions, optionIndex)
+      const fieldUpdates = { options: newOptions }
+      const newFieldList = updateItem(state.fields, fieldIndex, fieldUpdates)
+      return { fields: newFieldList }
     }
   }
 }

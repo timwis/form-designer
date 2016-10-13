@@ -23,6 +23,7 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
           <div class="radio" key=${optionIndex}>
             <input type="radio" class="no-left-margin">
             <label contenteditable="true" oninput=${onInputOption(optionIndex)}>${option.label}</label>
+            <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>X</button>
           </div>
         `)}
       </div>
@@ -74,6 +75,13 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
       const updates = { label: value }
       const data = { optionIndex, updates }
       changeOptionCallback('update', data)
+    }
+  }
+
+  function onClickDeleteOption (optionIndex) {
+    return function (evt) {
+      const data = { optionIndex }
+      changeOptionCallback('delete', data)
     }
   }
 
