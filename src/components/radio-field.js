@@ -23,7 +23,9 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
           <div class="radio" key=${optionIndex}>
             <input type="radio" class="no-left-margin">
             <label contenteditable="true" oninput=${onInputOption(optionIndex)}>${option.label}</label>
-            <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>X</button>
+            <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>
+              <span class="icon-trash"></span>
+            </button>
           </div>
         `)}
       </div>
@@ -44,7 +46,9 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
             <div class="checkbox required-toggle">
               <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
             </div>
-            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>Delete</button>
+            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>
+              <span class="icon-trash"></span>
+            </button>
           </div>
         </div>
       </div>

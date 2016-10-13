@@ -5,7 +5,9 @@ module.exports = (cb) => {
   const tree = html`
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Add field <span class="caret"></span>
+        <span class="icon-plus"></span>
+        Add field
+        <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
         <li><a href="#" onclick=${onClick('text')}>Text (Short answer)</a></li>

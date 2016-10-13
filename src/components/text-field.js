@@ -37,7 +37,9 @@ module.exports = (field, index, changeCallback, deleteCallback) => {
             <div class="checkbox required-toggle">
               <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
             </div>
-            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>Delete</button>
+            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>
+              <span class="icon-trash"></span>
+            </button>
           </div>
         </div>
       </div>
