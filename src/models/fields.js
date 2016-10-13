@@ -1,7 +1,7 @@
 module.exports = {
   state: {
     fields: [
-      { type: 'text' } // show blank question by default
+      { type: 'radio', options: [{}] } // show blank question by default
     ]
   },
   reducers: {

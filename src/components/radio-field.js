@@ -28,12 +28,25 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
             </button>
           </div>
         `)}
+        ${field.other
+          ? html`
+              <div class="radio">
+                <input type="radio" class="no-left-margin">
+                <label>Other...</label>
+                <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
+                  <span class="icon-trash"></span>
+                </button>
+              </div>
+            ` : ''}
       </div>
 
       <div class="radio">
-        <label onclick=${onClickAddOption}>
+        <label>
           <input type="radio">
-          Add option
+          <a href="#" onclick=${onClickAddOption}>Add option</a>
+          ${!field.other
+            ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>`
+            : ''}
         </label>
       </div>
 
@@ -92,6 +105,16 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   function onClickAddOption (evt) {
     changeOptionCallback('add')
     evt.preventDefault()
+    evt.stopPropagation()
+  }
+
+  function toggleOther (setTo) {
+    return function (evt) {
+      const updates = { other: setTo }
+      changeCallback(updates)
+      evt.preventDefault()
+      evt.stopPropagation()
+    }
   }
 
   function onDragDrop (el, target, source, nextSibling) {
