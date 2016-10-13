@@ -10,7 +10,7 @@ const prefix = css`
   }
 `
 
-module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
+module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptionCallback) => {
   const options = field.options || []
 
   const tree = html`
@@ -43,6 +43,7 @@ module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
             <div class="checkbox required-toggle">
               <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
             </div>
+            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>Delete</button>
           </div>
         </div>
       </div>
@@ -61,6 +62,10 @@ module.exports = (field, fieldIndex, changeCallback, changeOptionCallback) => {
       const updates = { [key]: value }
       changeCallback(updates)
     }
+  }
+
+  function onClickDelete (evt) {
+    deleteCallback()
   }
 
   function onInputOption (optionIndex) {

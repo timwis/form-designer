@@ -19,6 +19,10 @@ module.exports = {
       const newFieldList = moveItem(state.fields, data.fromIndex, data.toIndex)
       return { fields: newFieldList }
     },
+    deleteField: (data, state) => {
+      const newFieldList = removeItem(state.fields, data.index)
+      return { fields: newFieldList }
+    },
     addOption: (data, state) => {
       const { fieldIndex } = data
       const oldOptions = state.fields[fieldIndex].options
@@ -63,4 +67,11 @@ function moveItem (array, fromIndex, toIndex) {
   arrayCopy.splice(fromIndex, 1) // remove field that's moving
   arrayCopy.splice(toIndex, 0, item) // add it back
   return arrayCopy
+}
+
+function removeItem (array, index) {
+  return [
+    ...array.slice(0, index),
+    ...array.slice(index + 1)
+  ]
 }

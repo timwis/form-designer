@@ -17,7 +17,7 @@ const validTypes = [
   'color'
 ]
 
-module.exports = (field, index, changeCallback) => {
+module.exports = (field, index, changeCallback, deleteCallback) => {
   const inputType = validTypes.includes(field.type) ? field.type : 'text'
   const input = field.type === 'paragraph'
     ? html`<textarea class="form-control"></textarea>`
@@ -37,6 +37,7 @@ module.exports = (field, index, changeCallback) => {
             <div class="checkbox required-toggle">
               <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
             </div>
+            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>Delete</button>
           </div>
         </div>
       </div>
@@ -54,5 +55,9 @@ module.exports = (field, index, changeCallback) => {
   function onToggleRequired (evt) {
     const updates = { required: !!evt.target.checked }
     changeCallback(updates)
+  }
+
+  function onClickDelete (evt) {
+    deleteCallback()
   }
 }

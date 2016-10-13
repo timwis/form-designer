@@ -25,9 +25,9 @@ module.exports = (state, prev, send) => {
         ${state.fields.map((field, index) => {
           switch (field.type) {
             case 'radio':
-              return RadioField(field, index, changeCallback(index), changeOptionCallback(index))
+              return RadioField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
             default:
-              return TextField(field, index, changeCallback(index))
+              return TextField(field, index, changeCallback(index), deleteCallback(index))
           }
         })}
       </section>
@@ -63,6 +63,13 @@ module.exports = (state, prev, send) => {
     return function (updates) {
       const data = { index, updates }
       send('updateField', data)
+    }
+  }
+
+  function deleteCallback (index) {
+    return function () {
+      const data = { index }
+      send('deleteField', data)
     }
   }
 
