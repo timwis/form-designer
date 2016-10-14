@@ -5,8 +5,7 @@ module.exports = {
     ]
   },
   reducers: {
-    addField: (type, state) => {
-      const newField = { type }
+    addField: (newField, state) => {
       const newFieldList = [ ...state.fields, newField ]
       return { fields: newFieldList }
     },

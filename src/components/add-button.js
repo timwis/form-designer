@@ -1,7 +1,7 @@
 const html = require('choo/html')
 const bsn = require('bootstrap.native')
 
-module.exports = (cb) => {
+module.exports = (addFieldCallback) => {
   const tree = html`
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -10,11 +10,11 @@ module.exports = (cb) => {
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#" onclick=${onClick('text')}>Text (Short answer)</a></li>
-        <li><a href="#" onclick=${onClick('email')}>Email</a></li>
-        <li><a href="#" onclick=${onClick('number')}>Number</a></li>
-        <li><a href="#" onclick=${onClick('paragraph')}>Paragraph</a></li>
-        <li><a href="#" onclick=${onClick('radio')}>Radio</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'text' })}>Text (Short answer)</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'email' })}>Email</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'number' })}>Number</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'paragraph' })}>Paragraph</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'radio', options: [ {} ] })}>Radio</a></li>
       </ul>
     </div>
   `
@@ -22,9 +22,9 @@ module.exports = (cb) => {
   new bsn.Dropdown(tree.querySelector('[data-toggle="dropdown"]')) // eslint-disable-line
   return tree
 
-  function onClick (type) {
+  function onClick (field) {
     return function (evt) {
-      cb(type)
+      addFieldCallback(field)
       evt.preventDefault()
       evt.stopPropagation()
     }
