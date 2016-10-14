@@ -28,25 +28,15 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
             </button>
           </div>
         `)}
-        ${field.other
-          ? html`
-              <div class="radio">
-                <input type="radio" class="no-left-margin">
-                <label>Other...</label>
-                <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
-                  <span class="icon-trash"></span>
-                </button>
-              </div>
-            ` : ''}
       </div>
+
+      ${field.other ? OtherOption() : ''}
 
       <div class="radio">
         <label>
           <input type="radio">
           <a href="#" onclick=${onClickAddOption}>Add option</a>
-          ${!field.other
-            ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>`
-            : ''}
+          ${!field.other ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>` : ''}
         </label>
       </div>
 
@@ -73,6 +63,18 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   dragArea.on('drop', onDragDrop)
 
   return tree
+
+  function OtherOption () {
+    return html`
+      <div class="radio other-option">
+        <input type="radio" class="no-left-margin">
+        <label>Other...</label>
+        <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
+          <span class="icon-trash"></span>
+        </button>
+      </div>
+    `
+  }
 
   function onInput (key) {
     return function (evt) {
