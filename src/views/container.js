@@ -1,5 +1,4 @@
 const html = require('choo/html')
-const css = require('sheetify')
 const dragula = require('dragula')
 const yaml = require('js-yaml')
 
@@ -9,17 +8,9 @@ const { getIndexInParent } = require('../util')
 const TextField = require('../components/text-field')
 const MultipleChoiceField = require('../components/multiple-choice-field')
 
-const prefix = css`
-  @media (min-width: 768px) {
-    :host {
-      width: 730px;
-    }
-  }
-`
-
 module.exports = (state, prev, send) => {
   const tree = html`
-    <div class="container ${prefix}">
+    <div class="container">
       <h1>Form designer</h1>
       <section id="canvas">
         ${state.fields.map((field, index) => {
