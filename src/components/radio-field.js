@@ -30,10 +30,13 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
         `)}
       </div>
 
+      ${field.other ? OtherOption() : ''}
+
       <div class="radio">
-        <label onclick=${onClickAddOption}>
+        <label>
           <input type="radio">
-          Add option
+          <a href="#" onclick=${onClickAddOption}>Add option</a>
+          ${!field.other ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>` : ''}
         </label>
       </div>
 
@@ -60,6 +63,18 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   dragArea.on('drop', onDragDrop)
 
   return tree
+
+  function OtherOption () {
+    return html`
+      <div class="radio other-option">
+        <input type="radio" class="no-left-margin">
+        <label>Other...</label>
+        <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
+          <span class="icon-trash"></span>
+        </button>
+      </div>
+    `
+  }
 
   function onInput (key) {
     return function (evt) {
@@ -92,6 +107,16 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   function onClickAddOption (evt) {
     changeOptionCallback('add')
     evt.preventDefault()
+    evt.stopPropagation()
+  }
+
+  function toggleOther (setTo) {
+    return function (evt) {
+      const updates = { other: setTo }
+      changeCallback(updates)
+      evt.preventDefault()
+      evt.stopPropagation()
+    }
   }
 
   function onDragDrop (el, target, source, nextSibling) {
