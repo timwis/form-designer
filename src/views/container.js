@@ -19,18 +19,20 @@ const prefix = css`
 
 module.exports = (state, prev, send) => {
   const tree = html`
-    <div class="container ${prefix}">
+    <main class="pa4 black-80 measure center">
       <h1>Form designer</h1>
       <section id="canvas">
-        ${state.fields.map((field, index) => {
-          switch (field.type) {
-            case 'radio':
-            case 'checkbox':
-              return MultipleChoiceField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
-            default:
-              return TextField(field, index, changeCallback(index), deleteCallback(index))
-          }
-        })}
+        <fieldset class="ba b--transparent ph0 mh0">
+          ${state.fields.map((field, index) => {
+            switch (field.type) {
+              case 'radio':
+              case 'checkbox':
+                return MultipleChoiceField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
+              default:
+                return TextField(field, index, changeCallback(index), deleteCallback(index))
+            }
+          })}
+        </fieldset>
       </section>
       <section id="controls">
         ${AddButton(addFieldCallback)}
@@ -39,7 +41,7 @@ module.exports = (state, prev, send) => {
         <h3>Serialized</h3>
         <pre>${yaml.safeDump(state.fields)}</pre>
       </section>
-    </div>
+    </main>
   `
   const canvas = tree.querySelector('#canvas')
   const dragArea = dragula([canvas], { moves: moveHandler })

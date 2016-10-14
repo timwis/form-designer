@@ -1,7 +1,7 @@
 const choo = require('choo')
 const css = require('sheetify')
 
-css('bootstrap')
+css('tachyons')
 css('dragula/dist/dragula')
 css('./css/editable-field', { global: true })
 css('./css/drag-handle', { global: true })

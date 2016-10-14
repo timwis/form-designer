@@ -21,12 +21,12 @@ module.exports = (field, index, changeCallback, deleteCallback) => {
   const inputType = validTypes.includes(field.type) ? field.type : 'text'
   const input = field.type === 'paragraph'
     ? html`<textarea class="form-control"></textarea>`
-    : html`<input type=${inputType} class="form-control">`
+    : html`<input type=${inputType} class="pa2 input-reset ba bg-transparent w-100">`
 
   return html`
-    <div class="form-group" key=${index}>
+    <div class="mt3" key=${index}>
       <div class="drag-handle"></div>
-      <label contenteditable="true" oninput=${onInput('label')}>${field.label}</label>
+      <label contenteditable="true" oninput=${onInput('label')} class="db fw6 lh-copy f6">${field.label}</label>
       ${input}
       <div class="row">
         <div class="col-sm-8">
