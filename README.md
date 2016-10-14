@@ -6,8 +6,6 @@ but it's being designed to be reusable in other applications. Do you have a
 need for something like this? [Tell us about it](https://github.com/timwis/form-designer/issues/new)
 so we can design with it in mind.
 
-Status: Work in progress
-
 ![screenshot of app](http://i.imgur.com/iaLC5Ia.png)
 
 ## Usage
