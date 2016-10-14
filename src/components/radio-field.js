@@ -8,6 +8,9 @@ const prefix = css`
   input[type="radio"].no-left-margin {
     margin-left: 0;
   }
+  .other-option label {
+    color: #777;
+  }
 `
 
 module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptionCallback) => {
@@ -24,7 +27,7 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
             <input type="radio" class="no-left-margin">
             <label contenteditable="true" oninput=${onInputOption(optionIndex)}>${option.label}</label>
             <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>
-              <span class="icon-trash"></span>
+              <span class="icon-cancel"></span>
             </button>
           </div>
         `)}
@@ -70,7 +73,7 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
         <input type="radio" class="no-left-margin">
         <label>Other...</label>
         <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
-          <span class="icon-trash"></span>
+          <span class="icon-cancel"></span>
         </button>
       </div>
     `

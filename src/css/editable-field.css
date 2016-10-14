@@ -20,8 +20,3 @@ label[contenteditable="true"]:empty::before {
 .required-toggle {
   display: inline-block;
 }
-.other-option label {
-  min-width: 200px;
-  border-bottom: 1px #cecece solid;
-  color: #777;
-}
