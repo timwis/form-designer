@@ -7,7 +7,7 @@ const AddButton = require('../components/add-button')
 const { getIndexInParent } = require('../util')
 
 const TextField = require('../components/text-field')
-const RadioField = require('../components/radio-field')
+const MultipleChoiceField = require('../components/multiple-choice-field')
 
 const prefix = css`
   @media (min-width: 768px) {
@@ -25,7 +25,8 @@ module.exports = (state, prev, send) => {
         ${state.fields.map((field, index) => {
           switch (field.type) {
             case 'radio':
-              return RadioField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
+            case 'checkbox':
+              return MultipleChoiceField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
             default:
               return TextField(field, index, changeCallback(index), deleteCallback(index))
           }

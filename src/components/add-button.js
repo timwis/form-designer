@@ -15,6 +15,7 @@ module.exports = (addFieldCallback) => {
         <li><a href="#" onclick=${onClick({ type: 'number' })}>Number</a></li>
         <li><a href="#" onclick=${onClick({ type: 'paragraph' })}>Paragraph</a></li>
         <li><a href="#" onclick=${onClick({ type: 'radio', options: [ {} ] })}>Radio</a></li>
+        <li><a href="#" onclick=${onClick({ type: 'checkbox', options: [ {} ] })}>Checkboxes</a></li>
       </ul>
     </div>
   `

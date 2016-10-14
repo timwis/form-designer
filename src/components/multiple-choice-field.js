@@ -5,7 +5,8 @@ const dragula = require('dragula')
 const { getIndexInParent } = require('../util')
 
 const prefix = css`
-  input[type="radio"].no-left-margin {
+  input[type="radio"].no-left-margin,
+  input[type="checkbox"].no-left-margin {
     margin-left: 0;
   }
   .other-option label {
@@ -15,6 +16,7 @@ const prefix = css`
 
 module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptionCallback) => {
   const options = field.options || []
+  const type = field.type
 
   const tree = html`
     <div class="form-group ${prefix}" key=${fieldIndex}>
@@ -23,8 +25,8 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
 
       <div class="options-group">
         ${options.map((option, optionIndex) => html`
-          <div class="radio" key=${optionIndex}>
-            <input type="radio" class="no-left-margin">
+          <div class=${type} key=${optionIndex}>
+            <input type=${type} class="no-left-margin" />
             <label contenteditable="true" oninput=${onInputOption(optionIndex)}>${option.label}</label>
             <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>
               <span class="icon-cancel"></span>
@@ -35,9 +37,9 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
 
       ${field.other ? OtherOption() : ''}
 
-      <div class="radio">
+      <div class=${type}>
         <label>
-          <input type="radio">
+          <input type=${type} />
           <a href="#" onclick=${onClickAddOption}>Add option</a>
           ${!field.other ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>` : ''}
         </label>
@@ -69,8 +71,8 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
 
   function OtherOption () {
     return html`
-      <div class="radio other-option">
-        <input type="radio" class="no-left-margin">
+      <div class="${type} other-option">
+        <input type=${type} class="no-left-margin">
         <label>Other...</label>
         <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
           <span class="icon-cancel"></span>
