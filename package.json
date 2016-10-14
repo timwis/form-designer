@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "budo src/index.js --live -- -t sheetify/transform -t envify",
-    "build:fonts": "cp -R font dist/font",
+    "build:fonts": "rm -rf dist/font && cp -R font dist/font",
     "build": "NODE_ENV=production bankai build --js.transform envify && npm run build:fonts",
     "deploy": "npm run build && surge ./dist -d form-designer.surge.sh"
   },
