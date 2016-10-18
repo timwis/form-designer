@@ -1,6 +1,7 @@
 const html = require('choo/html')
 const css = require('sheetify')
 const dragula = require('dragula')
+const debounce = require('lodash/debounce')
 
 const { getIndexInParent } = require('../util')
 
@@ -82,11 +83,11 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   }
 
   function onInput (key) {
-    return function (evt) {
+    return debounce(function (evt) {
       const value = evt.target.innerText
       const updates = { [key]: value }
       changeCallback(updates)
-    }
+    }, 300)
   }
 
   function onClickDelete (evt) {
@@ -94,12 +95,12 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   }
 
   function onInputOption (optionIndex) {
-    return function (evt) {
+    return debounce(function (evt) {
       const value = evt.target.innerText
       const updates = { label: value }
       const data = { optionIndex, updates }
       changeOptionCallback('update', data)
-    }
+    }, 300)
   }
 
   function onClickDeleteOption (optionIndex) {

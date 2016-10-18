@@ -10,7 +10,8 @@
     "choo": "^3.3.0",
     "dragula": "^3.7.2",
     "js-yaml": "^3.6.1",
-    "sheetify": "^5.1.1"
+    "sheetify": "^5.1.1",
+    "lodash": "^4.16.4"
   },
   "devDependencies": {
     "bankai": "^3.3.1",
