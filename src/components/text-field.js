@@ -1,4 +1,5 @@
 const html = require('choo/html')
+const debounce = require('lodash/debounce')
 
 const validTypes = [
   'text',
@@ -51,11 +52,11 @@ module.exports = (field, index, changeCallback, deleteCallback) => {
   `
 
   function onInput (key) {
-    return function (evt) {
+    return debounce(function (evt) {
       const value = evt.target.innerText
       const updates = { [key]: value }
       changeCallback(updates)
-    }
+    }, 300)
   }
 
   function onToggleRequired (evt) {
