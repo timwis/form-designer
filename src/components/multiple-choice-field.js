@@ -19,16 +19,17 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
   const type = field.type
 
   const tree = html`
-    <div class="form-group ${prefix}" key=${fieldIndex}>
+    <div class="mv3 ${prefix}" key=${fieldIndex}>
       <div class="drag-handle"></div>
-      <label contenteditable="true" oninput=${onInput('label')}>${field.label}</label>
 
-      <div class="options-group">
+      <label contenteditable="true" oninput=${onInput('label')} class="b fw6 lh-copy f6">${field.label}</label>
+
+      <div>
         ${options.map((option, optionIndex) => html`
-          <div class=${type} key=${optionIndex}>
-            <input type=${type} class="no-left-margin" />
-            <label contenteditable="true" oninput=${onInputOption(optionIndex)}>${option.label}</label>
-            <button class="btn btn-default btn-xs" onclick=${onClickDeleteOption(optionIndex)}>
+          <div class="${type} mv1 f6" key=${optionIndex}>
+            <input type=${type} />
+            <label contenteditable="true" oninput=${onInputOption(optionIndex)} class="pa0 ma0 lh-copy pointer">${option.label}</label>
+            <button onclick=${onClickDeleteOption(optionIndex)} class="b pv0 ph0 input-reset ba ba--black bg-transparent pointer dib">
               <span class="icon-cancel"></span>
             </button>
           </div>
@@ -38,27 +39,28 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
       ${field.other ? OtherOption() : ''}
 
       <div class=${type}>
-        <label>
+        <label class="pa0 ma0 lh-copy f6 pointer">
           <input type=${type} />
-          <a href="#" onclick=${onClickAddOption}>Add option</a>
-          ${!field.other ? html`<span>or <a href="#" onclick=${toggleOther(true)}>Add "Other"</a></span>` : ''}
+          <a href="#" onclick=${onClickAddOption} class="link blue underline-hover">Add option</a>
+          ${!field.other ? html`<span>or <a href="#" onclick=${toggleOther(true)} class="link blue underline-hover">Add "Other"</a></span>` : ''}
         </label>
       </div>
 
-      <div class="row">
-        <div class="col-sm-8">
-          <p class="help-block" contenteditable="true" oninput=${onInput('description')}>${field.description}</p>
-        </div>
-        <div class="col-sm-4">
-          <div class="field-controls">
+      <div class="mw9">
+        <div class="cf">
+          <div class="fl w-100 w-50-ns pv2">
+            <p class="description mv0 gray f6" contenteditable="true" oninput=${onInput('description')}>${field.description}</p>
+          </div>
+          <div class="fl w-100 w-50-ns pv1 tr f6">
             <div class="checkbox required-toggle">
-              <label><input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required</label>
+              <label class="pa0 ma0 lh-copy pointer">
+                <input type="checkbox" ${field.required ? 'checked' : ''} onchange=${onToggleRequired} /> Required
+              </label>
             </div>
-            <button class="btn btn-default btn-xs" onclick=${onClickDelete}>
+            <button class="b ph1 pv1 input-reset ba b--black bg-transparent pointer dib" onclick=${onClickDelete}>
               <span class="icon-trash"></span>
             </button>
           </div>
-        </div>
       </div>
 
     </div>
@@ -71,10 +73,10 @@ module.exports = (field, fieldIndex, changeCallback, deleteCallback, changeOptio
 
   function OtherOption () {
     return html`
-      <div class="${type} other-option">
+      <div class="${type} other-option f6">
         <input type=${type} class="no-left-margin">
-        <label>Other...</label>
-        <button class="btn btn-default btn-xs" onclick=${toggleOther(false)}>
+        <label class="pa0 ma0 lh-copy pointer">Other...</label>
+        <button class="b pv0 ph0 input-reset ba ba--black bg-transparent pointer dib" onclick=${toggleOther(false)}>
           <span class="icon-cancel"></span>
         </button>
       </div>

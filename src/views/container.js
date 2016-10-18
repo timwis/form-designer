@@ -22,17 +22,15 @@ module.exports = (state, prev, send) => {
     <main class="pa4 black-80 measure center">
       <h1>Form designer</h1>
       <section id="canvas">
-        <fieldset class="ba b--transparent ph0 mh0">
-          ${state.fields.map((field, index) => {
-            switch (field.type) {
-              case 'radio':
-              case 'checkbox':
-                return MultipleChoiceField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
-              default:
-                return TextField(field, index, changeCallback(index), deleteCallback(index))
-            }
-          })}
-        </fieldset>
+        ${state.fields.map((field, index) => {
+          switch (field.type) {
+            case 'radio':
+            case 'checkbox':
+              return MultipleChoiceField(field, index, changeCallback(index), deleteCallback(index), changeOptionCallback(index))
+            default:
+              return TextField(field, index, changeCallback(index), deleteCallback(index))
+          }
+        })}
       </section>
       <section id="controls">
         ${AddButton(addFieldCallback)}

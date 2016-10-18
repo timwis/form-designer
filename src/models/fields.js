@@ -1,7 +1,7 @@
 module.exports = {
   state: {
     fields: [
-      { type: 'checkboxes', options: [{}] } // show blank question by default
+      { type: 'checkbox', options: [{}] } // show blank question by default
     ]
   },
   reducers: {
