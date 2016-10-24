@@ -21,12 +21,17 @@
     "envify": "^3.4.1"
   },
   "scripts": {
-    "start": "budo src/index.js --live -- -t sheetify/transform -t envify",
+    "start": "budo examples/choo.js --live --open",
     "build:fonts": "rm -rf dist/font && cp -R font dist/font",
-    "build": "NODE_ENV=production bankai build --js.transform envify && npm run build:fonts",
+    "build": "NODE_ENV=production bankai build && npm run build:fonts",
     "deploy": "npm run build && surge ./dist -d form-designer.surge.sh"
   },
   "keywords": [],
   "author": "timwis <tim@timwis.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "browserify": {
+    "transform": [
+      "sheetify/transform"
+    ]
+  }
 }
