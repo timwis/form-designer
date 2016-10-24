@@ -2,17 +2,17 @@ const html = require('choo/html')
 const css = require('sheetify')
 const dragula = require('dragula')
 
-const model = require('../models/fields')
-const AddButton = require('../components/add-button')
-const { getIndexInParent } = require('../util')
-const TextField = require('../components/text-field')
-const MultipleChoiceField = require('../components/multiple-choice-field')
+const model = require('./models/fields')
+const AddButton = require('./components/add-button')
+const { getIndexInParent } = require('./util')
+const TextField = require('./components/text-field')
+const MultipleChoiceField = require('./components/multiple-choice-field')
 
 css('tachyons')
 css('dragula/dist/dragula')
-css('../css/editable-field', { global: true })
-css('../css/drag-handle', { global: true })
-css('../css/fontello', { global: true })
+css('./css/editable-field', { global: true })
+css('./css/drag-handle', { global: true })
+css('./css/fontello', { global: true })
 
 module.exports = (state, onStateChange) => {
   const tree = html`

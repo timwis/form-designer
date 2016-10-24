@@ -2,7 +2,7 @@ const choo = require('choo')
 const html = require('choo/html')
 const yaml = require('js-yaml')
 
-const FormDesigner = require('./views/container')
+const FormDesigner = require('../')
 
 const app = choo()
 
