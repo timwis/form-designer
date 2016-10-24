@@ -11,6 +11,7 @@
     "dragula": "^3.7.2",
     "js-yaml": "^3.6.1",
     "sheetify": "^5.1.1",
+    "tachyons": "^4.5.3",
     "lodash": "^4.16.4"
   },
   "devDependencies": {

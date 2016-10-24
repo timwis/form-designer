@@ -1,10 +1,37 @@
 const html = require('choo/html')
+const css = require('sheetify')
 const bsn = require('bootstrap.native')
+
+const prefix = css`
+  :host {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+  }
+  :host.open .dropdown-menu {
+    display: block;
+  }
+`
 
 module.exports = (addFieldCallback) => {
   const tree = html`
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class=${prefix}>
+      <button type="button" class="b ph3 pv2 input-reset ba b--black bg-transparent pointer f6 dib" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="icon-plus"></span>
         Add field
         <span class="caret"></span>

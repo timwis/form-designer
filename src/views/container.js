@@ -10,7 +10,7 @@ const MultipleChoiceField = require('../components/multiple-choice-field')
 
 module.exports = (state, prev, send) => {
   const tree = html`
-    <div class="container">
+    <main class="pa4 black-80 measure center">
       <h1>Form designer</h1>
       <section id="canvas">
         ${state.fields.map((field, index) => {
@@ -30,7 +30,7 @@ module.exports = (state, prev, send) => {
         <h3>Serialized</h3>
         <pre>${yaml.safeDump(state.fields)}</pre>
       </section>
-    </div>
+    </main>
   `
   const canvas = tree.querySelector('#canvas')
   const dragArea = dragula([canvas], { moves: moveHandler })

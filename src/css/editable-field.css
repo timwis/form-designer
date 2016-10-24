@@ -3,7 +3,6 @@
 }
 [contenteditable="true"]:empty::before {
   border-bottom: 1px #777 dashed;
-  padding: 3px;
 }
 label[contenteditable="true"]:empty::before {
   content: 'Untitled Question'
@@ -11,7 +10,7 @@ label[contenteditable="true"]:empty::before {
 .radio label[contenteditable="true"]:empty::before {
   content: 'Untitled Option'
 }
-.help-block[contenteditable="true"]:empty::before {
+.description[contenteditable="true"]:empty::before {
   content: 'Optional description'
 }
 .field-controls {
