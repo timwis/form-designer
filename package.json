@@ -2,7 +2,7 @@
   "name": "form-designer",
   "version": "0.1.0",
   "description": "",
-  "main": "src/views/container.js",
+  "main": "src/index.js",
   "dependencies": {
     "bel": "^4.5.0",
     "bootstrap": "^3.3.7",
