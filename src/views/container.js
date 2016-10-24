@@ -1,17 +1,22 @@
 const html = require('choo/html')
+const css = require('sheetify')
 const dragula = require('dragula')
-const yaml = require('js-yaml')
 
+const model = require('../models/fields')
 const AddButton = require('../components/add-button')
 const { getIndexInParent } = require('../util')
-
 const TextField = require('../components/text-field')
 const MultipleChoiceField = require('../components/multiple-choice-field')
 
-module.exports = (state, prev, send) => {
+css('tachyons')
+css('dragula/dist/dragula')
+css('../css/editable-field', { global: true })
+css('../css/drag-handle', { global: true })
+css('../css/fontello', { global: true })
+
+module.exports = (state, onStateChange) => {
   const tree = html`
-    <main class="pa4 black-80 measure center">
-      <h1>Form designer</h1>
+    <div class="black-80 center">
       <section id="canvas">
         ${state.fields.map((field, index) => {
           switch (field.type) {
@@ -26,11 +31,7 @@ module.exports = (state, prev, send) => {
       <section id="controls">
         ${AddButton(addFieldCallback)}
       </section>
-      <section id="serialized">
-        <h3>Serialized</h3>
-        <pre>${yaml.safeDump(state.fields)}</pre>
-      </section>
-    </main>
+    </div>
   `
   const canvas = tree.querySelector('#canvas')
   const dragArea = dragula([canvas], { moves: moveHandler })
@@ -41,6 +42,11 @@ module.exports = (state, prev, send) => {
   function moveHandler (el, container, handle) {
     // only allow dragging from the handler
     return handle.classList.contains('drag-handle')
+  }
+
+  function send (action, data) {
+    const stateUpdate = model.reducers[action](data, state)
+    onStateChange(stateUpdate)
   }
 
   function dragDropCallback (el, target, source, nextSibling) {
